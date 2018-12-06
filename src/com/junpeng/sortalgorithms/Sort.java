@@ -108,4 +108,40 @@ public final class Sort {
 			gap = gap / 3;
 		}
 	}
+
+	// Merge Sort
+	public static <T extends Comparable<T>> void mergeSort(T[] arr, int left_idx, int right_idx, T[] temp_arr) {
+		if (left_idx < right_idx) {
+			int mid = (left_idx + right_idx) / 2;
+			mergeSort(arr, left_idx, mid, temp_arr);
+			mergeSort(arr, mid + 1, right_idx, temp_arr);
+			merge(arr, left_idx, mid, right_idx, temp_arr);
+		}
+
+	}
+
+	public static <T extends Comparable<T>> void merge(T[] arr, int left_idx, int mid, int right_idx, T[] temp_arr) {
+		int l = left_idx, r = mid + 1, i = 0;
+
+		while (l <= mid && r <= right_idx) {
+			if (arr[l].compareTo(arr[r]) < 0) {
+				temp_arr[i++] = arr[l++];
+			} else {
+				temp_arr[i++] = arr[r++];
+			}
+		}
+
+		while (l <= mid) {
+			temp_arr[i++] = arr[l++];
+		}
+
+		while (r <= right_idx) {
+			temp_arr[i++] = arr[r++];
+		}
+
+		i = 0;
+		while (left_idx <= right_idx) {
+			arr[left_idx++] = temp_arr[i++];
+		}
+	}
 }
